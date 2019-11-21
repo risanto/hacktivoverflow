@@ -3,8 +3,11 @@ const verifyToken = require('../helpers/verifyToken')
 
 module.exports = (req, res, next) => {
   try {
+    
     const { access_token } = req.headers
     const decoded = verifyToken(access_token, next)
+    
+    console.log('masuk authenticate', access_token, decoded);
 
     if (!decoded) {
       throw {
