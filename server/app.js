@@ -27,6 +27,9 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cors())
 
+app.get('/', (req, res) => {
+  console.log('ini home server');
+})
 app.use('/', routes)
 app.use(errorHandler)
 
