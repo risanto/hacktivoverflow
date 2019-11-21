@@ -558,13 +558,13 @@
 | /answers/:id | PATCH | access_token: string | _id: string, description: string, upvotes: number, downvotes: number |
 | /answers/:id | DELETE | access_token: string | None |
 
-**1. Fetch all articles**
+**1. Fetch all answers**
 ----
-  Returns all articles from the database.
+  Returns all answers from the database.
 
 * **URL**
 
-  /articles
+  /answers
 
 * **Method:**
 
@@ -585,24 +585,24 @@
 * **Success Response:**
 
   * **Code:** 200 <br />
-    **Content:** `{ "articles": [{"foo": "bar"}] }`
+    **Content:** `{ "answers": [{"foo": "bar"}] }`
  
 * **Error Response:**
 
   * **Code:** 500 INTERNAL SERVER ERROR <br />
     **Content:** `{
     "messages": [
-        "Failed to fetch articles. Please refresh the browser!"
+        "Failed to fetch answers. Please refresh the browser!"
     ]
 }`
 
-**2. Add an article**
+**2. Add an answer**
 ----
-  Create a new article.
+  Create a new answer.
 
 * **URL**
 
-  /articles
+  /answers
 
 * **Method:**
 
@@ -623,24 +623,24 @@
 * **Success Response:**
 
   * **Code:** 200 <br />
-    **Content:** `{ "message": "Successfully published an article!" }`
+    **Content:** `{ "message": "Successfully published an answer!" }`
  
 * **Error Response:**
 
   * **Code:** 500 INTERNAL SERVER ERROR <br />
     **Content:** `{
     "messages": [
-        "Failed to submit the article. Please try again!"
+        "Failed to submit the answer. Please try again!"
     ]
 }`
 
-**3. Fetch an article**
+**3. Fetch an answer**
 ----
-  Fetch a specific article.
+  Fetch a specific answer.
 
 * **URL**
 
-  /articles/:id
+  /answers/:id
 
 * **Method:**
 
@@ -661,24 +661,24 @@
 * **Success Response:**
 
   * **Code:** 200 <br />
-    **Content:** `{ "article": {"foo": "bar"} }`
+    **Content:** `{ "answer": {"foo": "bar"} }`
  
 * **Error Response:**
 
   * **Code:** 500 INTERNAL SERVER ERROR <br />
     **Content:** `{
     "messages": [
-        "Failed to fetch the article. Please try again!"
+        "Failed to fetch the answer. Please try again!"
     ]
 }`
 
-**4. Update an article**
+**4. Update an answer**
 ----
-  Update a specific article.
+  Update a specific answer.
 
 * **URL**
 
-  /articles/:id
+  /answers/:id
 
 * **Method:**
 
@@ -699,24 +699,24 @@
 * **Success Response:**
 
   * **Code:** 200 <br />
-    **Content:** `{ "article": {"foo": "bar"} }`
+    **Content:** `{ "answer": {"foo": "bar"} }`
  
 * **Error Response:**
 
   * **Code:** 500 INTERNAL SERVER ERROR <br />
     **Content:** `{
     "messages": [
-        "Failed to update the article. Please try again!"
+        "Failed to update the answer. Please try again!"
     ]
 }`
 
-**5.Delete an article**
+**5.Delete an answer**
 ----
-  DElete a specific article.
+  DElete a specific answer.
 
 * **URL**
 
-  /articles/:id
+  /answers/:id
 
 * **Method:**
 
@@ -737,13 +737,13 @@
 * **Success Response:**
 
   * **Code:** 200 <br />
-    **Content:** `{ "message": "Successfully deleted an article!"} }`
+    **Content:** `{ "message": "Successfully deleted an answer!"} }`
  
 * **Error Response:**
 
   * **Code:** 500 INTERNAL SERVER ERROR <br />
     **Content:** `{
     "messages": [
-        "Failed to delete the article. Please try again!"
+        "Failed to delete the answer. Please try again!"
     ]
 }`
