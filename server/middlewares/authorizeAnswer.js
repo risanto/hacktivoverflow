@@ -1,14 +1,14 @@
-const Question = require('../models/Question')
+const Answer = require('../models/Answer')
 
 module.exports = (req, res, next) => {
+  
   try {
     const _id = req.params.id
-    const asker = req.user.id
-
-    // console.log('ini asker', asker);
+    const answerer = req.user.id
+    console.log('masuk authorize answer', _id, answerer);
     
-    Question
-      .findOne({ _id, asker })
+    Answer
+      .findOne({ _id, answerer })
       .then(user => {      
         if (!user) throw {
           name: 'Unauthorized',

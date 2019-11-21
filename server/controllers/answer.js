@@ -1,46 +1,45 @@
+const Answer = require('../models/Answer')
 const Question = require('../models/Question')
 
-class ControllerQuestion {
-  static fetchAll(req, res, next) {
+class ControllerAnswer {
+  static fetchByQuestionId(req, res, next) {
+    const { questionId } = req.params
     Question
-      .find()
+      .find({ questionId })
       .populate('answers')
-      .populate('asker')
-      .then(questions => {
-        res.status(200).json({ questions })
+      .then(question => {
+        const { answers } = question
+        res.status(200).json({ answers })
       })
       .catch(next)
   }
 
   static fetchOne(req, res, next) {
     const _id = req.params.id
-    Question
+    Answer
       .findById(_id)
-      .populate({
-        path: 'answers',
-        populate: {
-          path: 'answerer'
-        }
-      })
-      .populate('asker')
-      .then(question => {
-        console.log('ini fetch one question', question);
-        
-        res.status(200).json({ question })
+      .then(answer => {
+        res.status(200).json({ answer })
       })
       .catch(next)
   }
 
   static add(req, res, next) {
-    const { title, description } = req.body
-    Question
+    const question = req.params.questionId
+    const { description } = req.body
+    Answer
       .create({
-        title, description, asker: req.user.id
+        description, question, answerer: req.user.id
       })
-      .then(question => {
-        res.status(201).json({
-          message: 'Successfully posted a question!', question
-        })
+      .then(answer => {
+        return Question
+          .updateOne({ _id: question }, 
+            { $push: { answers: answer}})
+          .then(() => {
+            res.status(201).json({
+              message: 'Successfully posted an answer!', answer
+            })
+          })
       })
       .catch(next)
   }
@@ -48,13 +47,13 @@ class ControllerQuestion {
   static update(req, res, next) {
     const { title, description } = req.body
     const _id = req.params.id
-    Question
+    Answer
       .findByIdAndUpdate(_id,
         { title, description },
         { omitUndefined: true, new: true })
-      .then(question => {
+      .then(answer => {
         res.status(200).json({
-          message: 'Successfully updated a question!', question
+          message: 'Successfully updated an answer!', answer
         })
       })
       .catch(next)
@@ -62,11 +61,11 @@ class ControllerQuestion {
 
   static delete(req, res, next) {
     const _id = req.params.id
-    Question
+    Answer
       .findByIdAndDelete(_id)
-      .then(question => {
+      .then(answer => {
         res.status(200).json({
-          "message": "Successfully deleted a question!", question
+          "message": "Successfully deleted a answer!", answer
         })
       })
       .catch(next)
@@ -74,36 +73,36 @@ class ControllerQuestion {
 
   static upvote(req, res, next) {
     const _id = req.params.id
-    Question
+    Answer
       .findById(_id)
-      .then(question => {
-        if (!question) {
+      .then(answer => {
+        if (!answer) {
           throw {
-            name: 'QuestionNotFound',
+            name: 'AnswerNotFound',
             status: 404,
-            message: 'Question not found!'
+            message: 'Answer not found!'
           }
         } else {
-          return Question
+          return Answer
             .updateOne({ _id }, { $pull: { downvotes: req.user.id } }, { multi: true })
         }
       })
       .then(() => {
-        return Question
+        return Answer
           .findById(_id)
       })
-      .then(question => {
-        if (question.upvotes.includes(req.user.id)) {
-          return Question
+      .then(answer => {
+        if (answer.upvotes.includes(req.user.id)) {
+          return Answer
             .updateOne({ _id }, { $pull: { upvotes: req.user.id } }, { multi: true })
         } else {
-          return Question
+          return Answer
             .updateOne({ _id }, { $push: { upvotes: req.user.id } }, { new: true })
         }
       })
-      .then(question => {
+      .then(answer => {
         res.status(200).json({
-          "message": "Successfully updated your upvote to this question!", question
+          "message": "Successfully updated your upvote to this answer!", answer
         })
       })
       .catch(next)
@@ -111,40 +110,40 @@ class ControllerQuestion {
 
   static downvote(req, res, next) {
     const _id = req.params.id
-    Question
+    Answer
       .findById(_id)
-      .then(question => {
-        if (!question) {
+      .then(answer => {
+        if (!answer) {
           throw {
-            name: 'QuestionNotFound',
+            name: 'AnswerNotFound',
             status: 404,
-            message: 'Question not found!'
+            message: 'Answer not found!'
           }
         } else {
-          return Question
+          return Answer
             .updateOne({ _id }, { $pull: { upvotes: req.user.id } }, { multi: true })
         }
       })
       .then(() => {
-        return Question
+        return Answer
           .findById(_id)
       })
-      .then(question => {
-        if (question.downvotes.includes(req.user.id)) {
-          return Question
+      .then(answer => {
+        if (answer.downvotes.includes(req.user.id)) {
+          return Answer
             .updateOne({ _id }, { $pull: { downvotes: req.user.id } }, { multi: true })
         } else {
-          return Question
+          return Answer
             .updateOne({ _id }, { $push: { downvotes: req.user.id } }, { new: true })
         }
       })
-      .then(question => {
+      .then(answer => {
         res.status(200).json({
-          "message": "Successfully updated your upvote to this question!", question
+          "message": "Successfully updated your upvote to this answer!", answer
         })
       })
       .catch(next)
   }
 }
 
-module.exports = ControllerQuestion
+module.exports = ControllerAnswer

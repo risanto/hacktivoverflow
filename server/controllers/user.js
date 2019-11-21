@@ -21,6 +21,18 @@ class ControllerUser {
 
   static login(req, res, next) {
     const { email, password } = req.body
+
+    if (email.length < 1 ) throw {
+      name: 'BadRequest',
+      status: 400,
+      message: 'Please input your email address first!'
+    }
+    if (password.length < 1 ) throw {
+      name: 'BadRequest',
+      status: 400,
+      message: 'Please input your password first!'
+    }
+
     User
       .findOne({ email })
       .then(user => {

@@ -13,14 +13,12 @@ const questionSchema = new Schema({
     minlength: [30, 'Description must be at least 30 characters']
   },
   upvotes: {
-    type: Number,
-    default: 0,
-    required: [true, 'Upvotes cannot be null!']
+    type: Array,
+    default: []
   },
   downvotes: {
-    type: Number,
-    default: 0,
-    required: [true, 'Downvotes cannot be null!']
+    type: Array,
+    default: []
   },
   asker: {
     type: Schema.Types.ObjectId,

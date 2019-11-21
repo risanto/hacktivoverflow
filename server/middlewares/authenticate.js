@@ -28,6 +28,8 @@ module.exports = (req, res, next) => {
         }
 
         req.user = { id: user._id, email: payload.email }
+        // console.log('ini payload dan user', payload, req.user);
+        
         next()
       })
       .catch(next)
