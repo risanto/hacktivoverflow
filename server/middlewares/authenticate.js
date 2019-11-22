@@ -5,9 +5,12 @@ module.exports = (req, res, next) => {
   try {
     
     const { access_token } = req.headers
+    console.log('masuk authenticate ini access token nya', req.headers);
+
     const decoded = verifyToken(access_token, next)
     
-    console.log('masuk authenticate', access_token, decoded);
+    // console.log('2 >>> masuk authenticate ini access token-nya', access_token);
+    // console.log('masuk authenticate ini decoded-nya', decoded);
 
     if (!decoded) {
       throw {

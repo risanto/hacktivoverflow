@@ -24,8 +24,7 @@ class ControllerQuestion {
       })
       .populate('asker')
       .then(question => {
-        console.log('ini fetch one question', question);
-        
+        // console.log('ini fetch one question', question);
         res.status(200).json({ question })
       })
       .catch(next)
@@ -73,8 +72,7 @@ class ControllerQuestion {
   }
 
   static upvote(req, res, next) {
-    console.log('ini req user id', req.user.id);
-    
+    // console.log('ini req user id', req.user.id);
     const _id = req.params.id
     Question
       .findById(_id)

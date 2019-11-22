@@ -5,7 +5,7 @@ module.exports = (req, res, next) => {
     const _id = req.params.id
     const asker = req.user.id
 
-    // console.log('ini asker', asker);
+    // console.log('ini asker di authorize question', asker);
     
     Question
       .findOne({ _id, asker })

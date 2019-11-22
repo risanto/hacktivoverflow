@@ -1,5 +1,5 @@
 module.exports = (err, req, res, next) => {
-  console.log('ini err di err handler', err);
+  // console.log('ini err di err handler', err);
   
   let errStatus
   let messages = []

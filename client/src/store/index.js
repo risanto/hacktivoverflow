@@ -26,6 +26,7 @@ export default new Vuex.Store({
   },
   actions: {
     checkToken ({ commit }) {
+      // console.log('ini token di store/checkToken', localStorage.getItem('access_token'));
       if (localStorage.getItem('access_token')) {
         commit('TOGGLE_LOGIN_STATUS', true)
       } else {

@@ -76,17 +76,17 @@ export default {
         }
       })
         .then(({ data }) => {
+          localStorage.setItem("access_token", data.access_token);
           const user = {
             id: data.user._id,
             name: data.user.name,
             email: data.user.email,
             reputation: data.user.reputation
           }
-          localStorage.setItem("access_token", data.access_token);
           this.$store.state.user = user;
           this.$store.dispatch("checkToken");
-          this.toast("Successfully logged in!");
           this.$router.push('/');
+          this.toast("Successfully logged in!");
         })
         .catch(err => {
           const errMessages = err.response.data.messages;
