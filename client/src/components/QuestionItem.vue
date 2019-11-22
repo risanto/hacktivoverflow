@@ -2,6 +2,7 @@
   <div id="question-item">
     <v-container>
       <div class="question">
+
         <v-row>
           <v-col md="1">
             <div class="voting-container">
@@ -16,12 +17,13 @@
               <a>
                 <i
                   @click="downvote"
-                  :class="{ 'activeButton': downvoteActive }"
+                  :class="{ 'activeButton': question.downvotes.includes(user.id) ? true : downvoteActive }"
                   class="arrow-icon downvote material-icons"
                 >arrow_drop_down</i>
               </a>
             </div>
           </v-col>
+
           <v-col md="11">
             <div class="display-1">{{ question.title }}</div>
             <div class="description">
@@ -29,6 +31,7 @@
               <span v-html="question.description"></span>
               <div class="asker-div">Asked by {{ question.asker.name }}</div>
             </div>
+
             <v-col md="2" class="update-edit" v-if="user.id === question.asker._id">
               <a @click="updateQuestion">
                 update
@@ -39,6 +42,7 @@
               </a>
             </v-col>
           </v-col>
+
         </v-row>
 
         <div v-for="(answer, i) in question.answers" :key="i">
@@ -224,5 +228,6 @@ a {
 .update-edit {
   display: flex;
   flex-direction: row;
+  margin-left: 0;
 }
 </style>

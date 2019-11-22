@@ -26,12 +26,13 @@
           <span v-html="answer.description"></span>
           <div class="answerer-div">Answered by {{ answer.answerer.name }}</div>
         </div>
+        <v-col md="2" class="update-edit" v-if="user.id === answer.answerer._id">
+          <a @click="updateAnswer">update</a>
+          <div class="space"></div>
+          <a @click="deleteAnswer">delete</a>
+        </v-col>
       </v-col>
-      <v-col md="2" class="update-edit" v-if="user.id === answer.answerer._id">
-        <a @click="updateAnswer">update</a>
-        <div class="space"></div>
-        <a @click="deleteAnswer">delete</a>
-      </v-col>
+
     </v-row>
   </section>
 </template>
@@ -51,7 +52,6 @@ export default {
 
   methods: {
     upvote () {
-      // console.log("masuk upvote");
 
       this.upvoteActive = !this.upvoteActive;
       this.downvoteActive = false;
@@ -142,6 +142,8 @@ export default {
 }
 
 .update-edit {
-  margin-left: 10%;
+  display: flex;
+  flex-direction: row;
+  margin-left: 0;
 }
 </style>

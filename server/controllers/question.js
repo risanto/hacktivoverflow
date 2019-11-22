@@ -73,6 +73,8 @@ class ControllerQuestion {
   }
 
   static upvote(req, res, next) {
+    console.log('ini req user id', req.user.id);
+    
     const _id = req.params.id
     Question
       .findById(_id)

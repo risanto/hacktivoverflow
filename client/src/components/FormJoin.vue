@@ -81,7 +81,14 @@ export default {
         }
       })
         .then(({ data }) => {
+          const user = {
+            id: data.user._id,
+            name: data.user.name,
+            email: data.user.email,
+            reputation: data.user.reputation
+          }
           localStorage.setItem("access_token", data.access_token);
+          this.$store.state.user = user;
           this.$store.dispatch("checkToken");
           this.toast("Successfully registered!");
           this.$router.push('/');

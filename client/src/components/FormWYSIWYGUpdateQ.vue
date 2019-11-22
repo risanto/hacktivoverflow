@@ -1,5 +1,5 @@
 <template>
-  <div class="wysiwyg">
+  <div class="wysiwyg"> 
     <v-text-field 
       v-model="title" 
       label="Title" 

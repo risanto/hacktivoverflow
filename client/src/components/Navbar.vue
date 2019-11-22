@@ -1,14 +1,6 @@
 <template>
   <v-app-bar id="navbar" app color="primary" dark>
     <div class="d-flex align-center">
-      <!-- <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-      />-->
       <v-container fill-height>
         <img
           width="30px"
@@ -60,6 +52,7 @@ export default {
   methods: {
     logout () {
       localStorage.removeItem('access_token')
+      this.$store.state.user = {}
       this.$store.dispatch('checkToken')
       this.$router.push('/')
     }
