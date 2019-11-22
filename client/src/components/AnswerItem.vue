@@ -58,7 +58,10 @@ export default {
 
       axios({
         method: "patch",
-        url: "/answers/" + this.answer._id + "/upvote"
+        url: "/answers/" + this.answer._id + "/upvote",
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        }
       })
         .then(({ data }) => {
           this.$store.dispatch("fetchAQuestion", { id: this.$route.params.id });
@@ -81,7 +84,10 @@ export default {
 
       axios({
         method: "patch",
-        url: "/answers/" + this.answer._id + "/downvote"
+        url: "/answers/" + this.answer._id + "/downvote",
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        }
       })
         .then(({ data }) => {
           this.$store.dispatch("fetchAQuestion", { id: this.$route.params.id });
@@ -105,7 +111,10 @@ export default {
     deleteAnswer () {
       axios({
         method: 'delete',
-        url: '/answers/' + this.answer._id
+        url: '/answers/' + this.answer._id,
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        }
       })
       .then(({ data }) => {
         console.log(data);
